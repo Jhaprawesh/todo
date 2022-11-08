@@ -13,8 +13,9 @@ function App() {
   const [value, setValue] = useState([]);
   // GET DATA
 
-  const handleClick = () => {
-    console.log("clicked");
+  const handleClick = (e) => {
+    e.preventDefault();
+
     !count
       ? alert("Please enter a value")
       : setValue(
@@ -46,10 +47,11 @@ function App() {
             Add Your Todo List
           </h3>
         </div>
-        <div>
+
+        <form onSubmit={handleClick}>
           <div className=" flex justify-center mt-5">
             <input
-              className=" p-3 rounded border-red-500 "
+              className=" p-3 rounded border-red-500 ml-1"
               type="text"
               value={count}
               onChange={(e) => {
@@ -58,22 +60,23 @@ function App() {
             />
 
             <button
-              onClick={handleClick}
-              className=" bg-indigo-600 text-white  rounded p-3 mx-5 "
+              type="submit"
+              className=" bg-indigo-600 text-white rounded p-3 ml-1 "
             >
               Add Note
             </button>
           </div>
-        </div>
-        <div className=" relative">
-          <ul className="space-y-3  pl-4 mt-5  absolute top-1/2 left-1/2 transform -translate-x-1/2 w-1/2">
+        </form>
+
+        <div className=" relative ">
+          <ul className="space-y-3  mt-5 break-all mx-3">
             {value.length == 0 ? (
               <p className=" capitalize "> no todo</p>
             ) : (
               value.map((v, index) => (
                 <li
                   key={index}
-                  className=" bg-white p-3 list-disc flex justify-between items-center rounded  overscroll-contain"
+                  className=" bg-white p-3 list-disc flex justify-between items-center rounded"
                 >
                   {v.title} <span>{v.added} </span>
                   <button
