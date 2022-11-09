@@ -1,16 +1,11 @@
 import { useState, useEffect } from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
 
-const getLocalStorageData = () => {
-  let list = localStorage.getItem("lists");
-  if (list) {
-    return localStorage.getItem("lists");
-  }
-};
-
 function App() {
   const [count, setCount] = useState("");
-  const [value, setValue] = useState([]);
+  const [value, setValue] = useState(
+    () => JSON.parse(localStorage.getItem("lists")) || []
+  );
   // GET DATA
 
   const handleClick = (e) => {
@@ -61,7 +56,7 @@ function App() {
 
             <button
               type="submit"
-              className=" bg-indigo-600 text-white rounded p-3 ml-1 "
+              className=" bg-indigo-600 text-white rounded p-3 mx-5 "
             >
               Add Note
             </button>
@@ -69,14 +64,14 @@ function App() {
         </form>
 
         <div className=" relative ">
-          <ul className="space-y-3  mt-5 break-all mx-3">
-            {value.length == 0 ? (
+          <ul className="space-y-3  mt-5 break-all mx-3 list-decimal">
+            {value.length === 0 ? (
               <p className=" capitalize "> no todo</p>
             ) : (
               value.map((v, index) => (
                 <li
                   key={index}
-                  className=" bg-white p-3 list-disc flex justify-between items-center rounded"
+                  className=" bg-white p-3  flex justify-between items-center rounded"
                 >
                   {v.title} <span>{v.added} </span>
                   <button
